@@ -1,0 +1,30 @@
+name: Python Tests
+
+on:
+  push:
+    branches:
+      - main  # Trigger tests on pushes to the main branch
+  pull_request:
+    branches:
+      - main  # Trigger tests on pull requests to the main branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3  # Fetch the latest code
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10  # Specify the Python version
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest
+
+    - name: Run tests
+      run: pytest
